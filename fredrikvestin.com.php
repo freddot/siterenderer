@@ -16,7 +16,7 @@ function formatTime($t) {
 function renderProjectPost($project, $cssclass) {
     return "<div class=\"project_post\">" .
             "<div class=\"" . $cssclass . "title\">" . str_replace("\n", "", $project["title"]) . 
-                "<div class=\"" . $cssclass . "time\">" . formatTime(str_replace("\n", "", $project["time"])) . "</div>" .
+                "<div class=\"" . $cssclass . "time\">" . formatTime(str_replace("\n", "", $project["time_modified"])) . "</div>" .
             "</div>" .
             "<div class=\"" . $cssclass . "body\">" . str_replace("\n", "<br/>", $project["body"]) . "</div>" .
         "</div>";
@@ -29,13 +29,16 @@ foreach($projects as $project) {
     $html .= renderProjectPost($project, "project_");
 }
 
+// get template
+$page = getContentsOfFile("templates/projects.html");
+
 // insert posts
-$html = insertIntoTemplate($html, "contents", "templates/projects.html");
+$page = insertIntoTemplate($html, "contents", $page);
 
 // insert topmenu
-// $html = insertIntoTemplate($html, "topmenu", "templates/topmenu");
+// $page = insertIntoTemplate(getContentsOfFile("templates/topmenu"), "topmenu", $page);
 
 // write to file
-outputToFile($html, "output/index.html");
+outputToFile($page, "output/index.html");
 
 ?>

@@ -1,3 +1,3 @@
 echo "rendering";
-php siterenderer.php
+php fredrikvestin.com.php
 echo "done";

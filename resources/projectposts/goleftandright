@@ -1,6 +1,6 @@
-:title:
+::title::
 GoLeftAndRight
-:body:
+::body::
 A small racing game in which the player steer the car with only one button. Different zones on the track determines which way the car turns.
 The name is half-stolen from a game that helped inspire this project: <a href="http://www.kaninkul.com/games/Go-Left">Go Left</a>.
 

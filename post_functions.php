@@ -1,7 +1,5 @@
 <?php
 
-include "tinytags.php";
-
 function str_to_blog_post_url($s) {
 	$s = strtolower($s);
 	return str_replace(" ", "_", $s);
@@ -16,9 +14,9 @@ function getPosts($dir) {
 			if (filetype($filepath) === "file") {
 				$filehandle = fopen($filepath, "r");
 				$post = fread($filehandle, filesize($filepath));
-				$post .= "\n:filename:\n" . $filename;
-				if (!strpos($post, ":time:")) {
-					$post .= "\n:time:\n" . filemtime($filepath) . "\n";
+				$post .= "\n" . tinyTagStr("filename", $filename);
+				if (!containsTinyTag($post, "time_modified")) {
+					$post .= "\n" . tinyTagStr("time_modified", filemtime($filepath));
 				}
 				fclose($filehandle);
 				$result[] = $post;
@@ -38,6 +36,7 @@ function getProjectPosts() {
 	foreach($posts as $k => $v) {
 		$posts[$k] = parseTinyTags($v);
 	}
+	print_r($posts);
 	
 	// sort them
 	$sorted = array();
